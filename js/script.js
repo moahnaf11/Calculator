@@ -156,6 +156,19 @@ function percentFunction () {
 
             }
         }
+    }   else if (String(number1)) {
+        if (Number.isInteger(Number(number1) / 100)) {
+            number1 = number1 / 100;
+            display.textContent = number1;
+        }   else {
+            if (String(number1 / 100).split(".")[1].length > 5) {
+                number1 = (number1 / 100).toFixed(6);
+                display.textContent = number1;
+            }   else { 
+                number1 = (number1 / 100);
+                display.textContent = number1;
+            }
+        }
     }
 }
 
@@ -184,7 +197,7 @@ let pointButton = document.querySelector(".point");
 
 function decimalPointButton () {
     if (digits.indexOf(".") ==  -1) {
-        if (digits.length) {
+        if (digits.lengfth) {
             digits.push(".");
             display.textContent = digits.join("");
         }
