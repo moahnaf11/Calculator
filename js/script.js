@@ -92,70 +92,80 @@ let number2;
 let count = 0;
 let operatorArray = [];
 let answer;
+let obj = {};
 
 let display = document.querySelector(".display");
 let clearButton = document.querySelector(".clear");
 
-// function for A/C
+// function for AC
 
-clearButton.addEventListener("click", function () {
+function Clear () {
     display.textContent = "";
     digits = [];
     count = 0;
     number1 = null;
     number2 = null;
     operatorArray = [];
-});
+
+}
+
+clearButton.addEventListener("click", Clear);
 
 // functions for number clicks
 
 let numbers = document.querySelectorAll(".number");
 
-numbers.forEach(num => num.addEventListener("click", function (e) {
+function numberClick (e) {
     digits.push(e.target.textContent);
     display.textContent = digits.join("");
-}));
+}
+
+numbers.forEach(num => num.addEventListener("click", numberClick));
 
 // function for del
 
 let delButton = document.querySelector(".del");
-delButton.addEventListener("click", function (e) {
-    console.log("del button clicked");
-
+function DelButton () {
     if (digits.length) {
         digits.pop();
         display.textContent = digits.join("");
 
     }
-})
+
+}
+
+delButton.addEventListener("click", DelButton);
 
 
 // function for percent button
 
 let percentButton = document.querySelector(".percent");
-percentButton.addEventListener("click", function () {
-    if (digits.join("") % 100 == 0) {
-        display.textContent = digits.join("") / 100;
-        digits = [digits.join("") / 100];
-    } else if (String(parseFloat(digits.join("") / 100)).split(".")[1].length > 5) {
-        display.textContent = parseFloat(digits.join("") / 100).toFixed(6);
-        digits = [String(parseFloat(digits.join("") / 100).toFixed(6))];
 
-    }   else {
-        display.textContent = parseFloat(digits.join("") / 100);
-        digits = [String(parseFloat(digits.join("") / 100))]
+function percentFunction () {
+    if (digits.length) {
+        if (Number.isInteger(Number(digits.join("")) / 100)) {
+            display.textContent = digits.join("") / 100;
+            digits = [String(digits.join("") / 100)];
+        }   else {
+            if (String(parseFloat(digits.join("") / 100)).split(".")[1].length > 5) {
+                display.textContent = parseFloat(digits.join("") / 100).toFixed(6);
+                digits = [String(parseFloat(digits.join("") / 100).toFixed(6))];
+            }   else {
+                display.textContent = digits.join("") / 100;
+                digits = [String(digits.join("") / 100)]
 
+            }
+        }
     }
+}
 
-    
-    
-} )
+percentButton.addEventListener("click", percentFunction);
 
 
 // function for +/- 
 
 let negButton = document.querySelector(".neg");
-negButton.addEventListener("click", function () {
+function negativeFunction () {
     if (digits[0] == "-") {
         digits.shift();
         display.textContent = digits.join("");
@@ -164,24 +174,30 @@ negButton.addEventListener("click", function () {
         display.textContent = digits.join("");
     }
 
-})
+}
+negButton.addEventListener("click", negativeFunction);
 
 // function for point button
 
+
 let pointButton = document.querySelector(".point");
-pointButton.addEventListener("click", function () {
-    if (digits.join("").indexOf(".") ==  -1) {
-        digits.push(".");
-        display.textContent = digits.join("");
+
+function decimalPointButton () {
+    if (digits.indexOf(".") ==  -1) {
+        if (digits.length) {
+            digits.push(".");
+            display.textContent = digits.join("");
+        }
 
     }
-        
-})
+}
+
+pointButton.addEventListener("click", decimalPointButton);
 
 // function for +-*/** 
 
 let operationsDiv = document.querySelector(".operations");
-operationsDiv.addEventListener("click", function (e) {
+function operatorFunction (e) {
     let target = e.target;
     ++count;
     switch (target.className.split(" ")[1]) {
@@ -202,6 +218,13 @@ operationsDiv.addEventListener("click", function (e) {
         number2 = Number(digits.join(""));
         digits = [];
         equals();
+    }   else if (count > 1 && digits.length == 0 && String(number1)) {
+        if (operatorArray[0] == "+" && operatorArray[1] == "-") {
+            operatorArray.shift();
+        }   else if (operatorArray[0] == operatorArray[1]) {
+            operatorArray.shift();
+        }
+
     }   else if (digits.length) {
         number1 = Number(digits.join(""));
         display.textContent = "";
@@ -210,24 +233,35 @@ operationsDiv.addEventListener("click", function (e) {
         display.textContent = "";
     }
 
-} )
+}
+
+operationsDiv.addEventListener("click", operatorFunction);
 
 // function for pow
 
 let power = document.querySelector(".power");
-power.addEventListener("click", function () {
+function powerFunction () {
     ++count;
     operatorArray.push("**");
     if (count > 1 && digits.length && String(number1)) {
         number2 = Number(digits.join(""));
         digits = [];
         equals();
-    }   else if (digits.length && (!String(number1))) {
+    }   else if (count > 1 && digits.length == 0 && String(number1)) {
+        if (operatorArray[0] == operatorArray[1]) {
+            operatorArray.shift();
+        }
+
+    }   else if (digits.length) {
         number1 = Number(digits.join(""));
         display.textContent = "";
         digits = [];
+    }   else {
+        display.textContent = "";
     }
-})
+
+}
+power.addEventListener("click", powerFunction);
 
 // function for equals
 
@@ -240,6 +274,12 @@ function equals () {
         count = 0;
     }   else {
         count = 1;
+        if (digits.length) {
+            number2 = Number(digits.join(""));
+            if (operatorArray[0] == "+" && operatorArray[1] == "-") {
+                operatorArray.shift();
+            }   
+        }  
     }
 
     switch (operatorArray[0]) {
@@ -308,6 +348,68 @@ function equals () {
     number1 = answer;
 
 }
+
+// keyboard support
+
+window.addEventListener("keyup", function (e) {
+    if (Number(e.key) > -1 && Number(e.key) < 10) {
+        console.log("0-9");
+        numberClick({target: {textContent: String(e.key)}})
+    }   else if (e.key == ".") {
+        console.log("dot");
+        decimalPointButton();
+
+    }   else if (e.key == "Backspace") {
+        console.log("Backspace");
+        DelButton();
+
+    }   else if (e.key == "Delete") {
+        console.log("clear");
+        Clear();
+
+    }   else if (e.key == "-") {
+        console.log("minus");
+        operatorFunction({target: {className: "oper minus"}});
+
+    }   else if (e.key == "=") {
+        console.log("equal");
+        equals();
+
+    }   else if (e.key === "%" && e.shiftKey) {
+        console.log("%");
+        percentFunction();
+
+    }   else if (e.key === "+" && e.shiftKey) {
+        console.log("plus");
+        operatorFunction({target: {className: "oper plus"}});
+
+    }   else if (e.key === '*' && e.shiftKey) {
+        console.log("multiply");
+        operatorFunction({target: {className: "oper x"}});
+
+    }   else if (e.key === '/') {
+        console.log("divide");
+        operatorFunction({target: {className: "oper divide"}});
+
+    }   else if (e.key === '^' && e.shiftKey) {
+        console.log("power");
+        powerFunction();
+
+    }   else if (e.key == "_" && e.shiftKey) {
+        console.log("negative");
+        negativeFunction();
+
+
+    }
+})
+
+
+
+
+
+
+
+
 
 
 
