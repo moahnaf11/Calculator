@@ -1,0 +1,125 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calc-container {
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    height: 600px;
+    background-color: silver;
+    box-sizing: border-box;
+    padding: 10px;
+    gap: 10px;
+}
+
+.display {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border: 2px solid black;
+    flex-basis: 100px;
+    background-color: lightblue;
+    box-sizing: border-box;
+    font-size: 45px;
+    padding-right: 10px;
+}
+
+.top-buttons {
+    display: flex;
+    align-items: center;
+    height: 100px;
+    box-sizing: border-box;
+    gap: 5px;
+}
+
+.topButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: orange;
+    flex-grow: 1;
+    font-weight: 700;
+    height: 100px;
+    font-size: 28px;
+    box-sizing: border-box;
+    border: 2px solid black;
+    border-radius: 20px;
+}
+
+.number-buttons {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    box-sizing: border-box;
+    gap: 10px;
+}
+
+.ninetoseven,
+.sixtofour,
+.threetoone,
+.decimal-point {
+    box-sizing: border-box;
+    flex-grow: 1;
+    display: flex;
+    gap: 5px;
+}
+
+.number,
+.power,
+.point,
+.equal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    font-size: 32px;
+    font-weight: 500;
+    background-color: lightgreen;
+    box-sizing: border-box;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.equal {
+    background-color: orange;
+}
+
+.numbers-operation-container {
+    display: flex;
+    flex-grow: 1;
+    gap: 10px;
+}
+
+.operations {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.oper {
+    display: flex;
+    background-color: orange;
+    flex-basis: 50px;
+    font-size: 32px;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    box-sizing: border-box;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.zero {
+    flex-basis: 70px;
+}
+
