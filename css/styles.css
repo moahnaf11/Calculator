@@ -29,8 +29,9 @@ body {
     flex-basis: 100px;
     background-color: lightblue;
     box-sizing: border-box;
-    font-size: 45px;
+    font-size: 60px;
     padding-right: 10px;
+    font-family: Courier, monospace;
 }
 
 .top-buttons {
@@ -60,8 +61,10 @@ body {
     flex-direction: column;
     flex-grow: 1;
     box-sizing: border-box;
-    gap: 10px;
+    gap: 10px;  
 }
+
+
 
 .ninetoseven,
 .sixtofour,
@@ -121,5 +124,14 @@ body {
 
 .zero {
     flex-basis: 70px;
+}
+
+.number:hover,
+.power:hover,
+.point:hover,
+.equal:hover,
+.oper:hover,
+.topButton:hover {
+    background-color: aquamarine;
 }
 
