@@ -197,7 +197,7 @@ let pointButton = document.querySelector(".point");
 
 function decimalPointButton () {
     if (digits.indexOf(".") ==  -1) {
-        if (digits.lengfth) {
+        if (digits.length) {
             digits.push(".");
             display.textContent = digits.join("");
         }
